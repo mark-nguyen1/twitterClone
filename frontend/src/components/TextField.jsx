@@ -1,4 +1,4 @@
-const SignUpTextField = ({
+const TextField = ({
   icon,
   type,
   placeholder,
@@ -23,4 +23,4 @@ const SignUpTextField = ({
   );
 };
 
-export default SignUpTextField;
+export default TextField;

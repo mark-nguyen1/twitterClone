@@ -8,7 +8,7 @@ import { RxAvatar } from "react-icons/rx";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 
-import SignUpTextField from "../../../components/signup/SignUpTextField";
+import TextField from "../../../components/TextField";
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -40,7 +40,7 @@ const SignUpPage = () => {
         >
           <XSvg className="w-24 lg:hidden fill-white" />
           <h1 className="text-4xl font-bold text-white">Join today.</h1>
-          <SignUpTextField
+          <TextField
             icon={<MdOutlineMail />}
             type="email"
             placeholder="Email"
@@ -48,7 +48,7 @@ const SignUpPage = () => {
             inputChange={handleInputChange}
             value={formData.email}
           />
-          <SignUpTextField
+          <TextField
             icon={<RxAvatar />}
             type="text"
             placeholder="Username"
@@ -56,7 +56,7 @@ const SignUpPage = () => {
             inputChange={handleInputChange}
             value={formData.username}
           />
-          <SignUpTextField
+          <TextField
             icon={<MdDriveFileRenameOutline />}
             type="text"
             placeholder="Full name"
@@ -64,7 +64,7 @@ const SignUpPage = () => {
             inputChange={handleInputChange}
             value={formData.fullName}
           />
-          <SignUpTextField
+          <TextField
             icon={<RiLockPasswordLine />}
             type="password"
             placeholder="Password"
@@ -83,7 +83,7 @@ const SignUpPage = () => {
           <p className="text-white text-lg">Already have an account?</p>
           <Link to="/login">
             <button className="btn rounded-full btn-primary text-white btn-outline w-full">
-              Sign in
+              Log in
             </button>
           </Link>
         </div>
