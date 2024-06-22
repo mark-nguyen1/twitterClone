@@ -29,7 +29,7 @@ const CreatePost = () => {
           },
           body: JSON.stringify({ text, img }),
         });
-        const data = res.json();
+        const data = await res.json();
 
         if (!res.ok) {
           throw new Error(data.error || "Something went wrong");

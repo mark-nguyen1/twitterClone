@@ -22,7 +22,7 @@ cloudinary.config({
 const app = express();
 const PORT = process.env.PORT || 5000; 
 
-app.use(express.json()); //middlewear
+app.use(express.json({limit:"5mb"})); //middlewear //litmit of poast size
 app.use(express.urlencoded({ extended:true })); //to parse form data
 app.use(cookieParser());
 
