@@ -6,22 +6,53 @@ import { RxAvatar } from "react-icons/rx";
 import { RiLockPasswordLine } from "react-icons/ri";
 import XSvg from "../../../components/svgs/X";
 
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+// import toast from "react-hot-toast";
+
 const LoginPage = () => {
-  const [formData, setFromData] = useState({
+  const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
+  const queryClient = useQueryClient();
+
+  const {
+    mutate: loginMutation,
+    isError,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: async ({ username, password }) => {
+      try {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to log in");
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      // toast.success("Login Sucessful");
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    loginMutation(formData);
   };
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const isError = false;
 
   return (
     <div className="max-w-screen-xl mx-auto flex h-screen px-10">
@@ -52,10 +83,10 @@ const LoginPage = () => {
             value={formData.password}
           />
           <button className="btn btn-primary rounded-full text-white">
-            Login
+            {isPending ? "Loading..." : "Login"}
           </button>
           {isError && (
-            <p className="text-red-500 font-light">Something went wrong</p>
+            <p className="text-red-500 font-light">{error.message}</p>
           )}
         </form>
         <div className="flex flex-col lg:w-2/3 gap-2 mt-4">
